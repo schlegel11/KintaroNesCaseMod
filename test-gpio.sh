@@ -22,6 +22,9 @@ import RPi.GPIO as GPIO
 import subprocess
 
 GPIO.setmode(GPIO.BCM)
+# Disable warning about gpio3 and its resistor.
+GPIO.setwarnings(False)
+# Gpio3 uses a hardware based pul up resistor.
 GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.wait_for_edge(3, GPIO.FALLING)
 
