@@ -19,7 +19,7 @@ if ! python -c 'import RPi.GPIO' 2>/dev/null; then
 fi
 
 #Check if shutdown script already exists
-if [ -e /usr/local/bin/gpio3-shutdown.py ]
+if [ -e /usr/bin/gpio3-shutdown.py ]
 then
     echo "Script with name \"gpio3-shutdown\" already exists"
     exit 1
@@ -32,7 +32,7 @@ then
     exit 1
 fi
 
-echo "Write shutdown script to /usr/local/bin/gpio3-shutdown.py"
+echo "Write shutdown script to /usr/bin/gpio3-shutdown.py"
 echo
 
 #Write shutdown script
@@ -48,13 +48,13 @@ GPIO.setwarnings(False)
 GPIO.setup(3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.wait_for_edge(3, GPIO.FALLING)
 
-subprocess.call(["shutdown", "-h", "now"])' > /usr/local/bin/gpio3-shutdown.py
+subprocess.call(["shutdown", "-h", "now"])' > /usr/bin/gpio3-shutdown.py
 
 echo "Make shutdown script executable"
 echo
 
 #Make shutdown script executable
-chmod +x /usr/local/bin/gpio3-shutdown.py
+chmod +x /usr/bin/gpio3-shutdown.py
 
 echo "Write shutdown service to /etc/init.d/gpio3-shutdown.sh"
 echo
@@ -76,11 +76,11 @@ echo '#! /bin/sh
 case "$1" in
   start)
     echo "Starting gpio3-shutdown.py"
-    /usr/local/bin/gpio3-shutdown.py
+    /usr/bin/gpio3-shutdown.py
     ;;
   stop)
     echo "Stopping gpio3-shutdown.py"
-    pkill -f /usr/local/bin/gpio3-shutdown.py
+    pkill -f /usr/bin/gpio3-shutdown.py
     ;;
   *)
     echo "Usage: /etc/init.d/gpio3-shutdown.sh {start|stop}"
