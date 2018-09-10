@@ -76,7 +76,7 @@ echo '#! /bin/sh
 case "$1" in
   start)
     echo "Starting gpio3-shutdown.py"
-    /usr/bin/gpio3-shutdown.py
+    /usr/bin/gpio3-shutdown.py &
     ;;
   stop)
     echo "Stopping gpio3-shutdown.py"
